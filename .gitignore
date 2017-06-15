@@ -3,3 +3,12 @@
 *.sln
 *.sdf
 *.vcxproj
+*.obj
+*.tlog
+*.log
+*.opensdf
+*.pdb
+*.ilk
+*.exe
+*.lastbuildstate
+*.idb
