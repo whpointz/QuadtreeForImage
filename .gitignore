@@ -12,3 +12,6 @@
 *.exe
 *.lastbuildstate
 *.idb
+*.dll
+*.user
+*.cd
