@@ -16,7 +16,6 @@ using namespace cv;
 
 //Octree
 #include "Octree.hpp"
-#include "Point.hpp"
 
 //IO
 #include <iostream>
@@ -26,20 +25,12 @@ using namespace std;
 
 int main(){
 
-	Octree2d* Octree_zwh = new Octree2d;
+	Octree2d* Octree_zwh;
 	OctreeNode2d* Root;
 	
+	printf("Start build the tree!\n");
 	Root = Octree_zwh->BuildTree(Root, Depth, glm::vec2(0, 0), glm::vec2(logo.cols, logo.rows));
-
-// 	cout << glm::to_string(Root->_min) << " " << glm::to_string(Root->_max) << endl;
-// 
-// 	cout << glm::to_string(Root->_children[0]->_min) << " " << glm::to_string(Root->_children[0]->_max) << endl;
-// 	cout << glm::to_string(Root->_children[1]->_min) << " " << glm::to_string(Root->_children[1]->_max) << endl;
-// 	cout << glm::to_string(Root->_children[2]->_min) << " " << glm::to_string(Root->_children[2]->_max) << endl;
-// 	cout << glm::to_string(Root->_children[3]->_min) << " " << glm::to_string(Root->_children[3]->_max) << endl;
-
-
-	printf("\n\n\n");
+	printf("Build the Tree end!\n");
 
 	//a new mat to store the ans
 	char imagename[10];
@@ -57,6 +48,8 @@ int main(){
 				S.push(S.front()->_children[i]);
 		}
 
+		//if the node is the leaf node , update the ans image. 
+		//using the data: _min _max _data
 		if (S.front()->_children[0]==0)
 		{
 			for (int i = S.front()->_min.x; i < S.front()->_max.x; i++)
@@ -76,13 +69,11 @@ int main(){
 			//cout << glm::to_string(S.front()->_min) << " " << glm::to_string(S.front()->_max) << " " << glm::to_string(S.front()->_data) << endl;
 
 		}
-		
 		S.pop();
 	}
-
+	printf("update ans mat end!\n");
+	//save the ans mat
 	imwrite(imagename, ans);
-	imshow("logo", logo);
-	waitKey();
-
-
+	//imshow("logo", logo);
+	//waitKey();
 }

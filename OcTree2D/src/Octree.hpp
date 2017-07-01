@@ -39,7 +39,7 @@ struct OctreeNode
 
 };
 
-
+//Class of the Tree
 template<class T>
 class Octree_
 {
@@ -53,9 +53,12 @@ public:
 
 	~Octree_(){ delete _root; }
 
+
+	//Build the Tree
 	OctreeNode<T>* BuildTree(OctreeNode<T>* &root, int maxdepth, T min, T max){
 		maxdepth = maxdepth - 1;
-		if (maxdepth>=0){
+		if (maxdepth>=0)
+		{
 			root = new OctreeNode<T>();
 			T mid = T ((min.x + max.x) / 2, (min.y + max.y) / 2);
 
@@ -66,6 +69,7 @@ public:
 
 			if (root->_children[0]!=0)
 			{
+				//the root data is the average num of the 4 children's data.
 				root->_data.x = (root->_children[0]->_data.x + root->_children[1]->_data.x + root->_children[2]->_data.x + root->_children[3]->_data.x) / 4;
 				root->_data.y = (root->_children[0]->_data.y + root->_children[1]->_data.y + root->_children[2]->_data.y + root->_children[3]->_data.y) / 4;
 				root->_data.z = (root->_children[0]->_data.z + root->_children[1]->_data.z + root->_children[2]->_data.z + root->_children[3]->_data.z) / 4;
@@ -73,20 +77,15 @@ public:
 			else
 			{
 				//cout << glm::to_string(min) << " " << glm::to_string(max) << endl;
-				Mat my_mat(logo, Rect(int(min.x), int(min.y), int(max.x) - int(min.x), int(max.y) - int(min.y)));
-				//printf("%d %d\n", my_mat.cols, my_mat.rows);
-				//imshow("mylogo", my_mat);
-				//waitKey();
+				Mat my_mat(logo, Rect(int(min.x), int(min.y), int(max.x) - int(min.x), int(max.y) - int(min.y)));//(beginx beginy lenx leny)
 				Mat channels[3];
- 				split(my_mat, channels);
+ 				split(my_mat, channels);//get the 3 channels of the Rect and RGB is the mean of the different channels of the Rect
  				root->_data.x = mean(channels[0]).val[0];
  				root->_data.y = mean(channels[1]).val[0];
  				root->_data.z = mean(channels[2]).val[0];
 				//cout << glm::to_string(root->_data) << endl<<endl;
 			}
 			
-
-
 			root->_max = max;
 			root->_min = min;
 		}

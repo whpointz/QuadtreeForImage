@@ -19,7 +19,7 @@
 
 #define xVal 128
 #define yVal 128
-#define Depth 10
+#define Depth 5
 
 Mat logo = imread("src/Kite.jpg");
 
