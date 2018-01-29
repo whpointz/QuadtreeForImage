@@ -5,7 +5,7 @@
  *    > Description:
  *
  *    > Created Time: 2017/06/24 13:30:54
-**/
+ **/
 
 // OpenCv 
 #include <opencv2/opencv.hpp>
@@ -23,51 +23,48 @@ using namespace cv;
 using namespace std;
 
 
-int main(){
+int main()
+{
+	QuadTree* Octree_zwh = new QuadTree;
+	Octree_zwh->image_data = logo;
 
-	Octree2d* Octree_zwh;
-	OctreeNode2d* Root;
-	
 	printf("Start build the tree!\n");
-	Root = Octree_zwh->BuildTree(Root, Depth, glm::vec2(0, 0), glm::vec2(logo.cols, logo.rows));
+	QuadTreeNode* Root = Octree_zwh->BuildTree(Depth, glm::vec2(0, 0), glm::vec2(Octree_zwh->image_data.cols, Octree_zwh->image_data.rows));
 	printf("Build the Tree end!\n");
 
 	//a new mat to store the ans
 	char imagename[10];
-	sprintf_s(imagename, "%d.jpg", Depth);
+	sprintf_s(imagename, "ans%d.jpg", Depth);
 	Mat ans = logo.clone();
 
-	//out all the data in the Octree
-	queue<OctreeNode2d*> S;
+	//out all the data in the Octreel
+	queue<QuadTreeNode*> S;
 	S.push(Root);
 	while (!S.empty())
 	{
-		for (int i = 0; i < 4;i++)
+		for (int i = 0; i < 4; i++)
 		{
-			if (S.front()->_children[i] != 0)
+			if (S.front()->_children[i] != nullptr)
 				S.push(S.front()->_children[i]);
 		}
 
 		//if the node is the leaf node , update the ans image. 
 		//using the data: _min _max _data
-		if (S.front()->_children[0]==0)
+		if (S.front()->_children[0] == nullptr)
 		{
 			for (int i = S.front()->_min.x; i < S.front()->_max.x; i++)
 			{
 				for (int j = S.front()->_min.y; j < S.front()->_max.y; j++)
 				{
-					if (i >= 0 && i<ans.cols && j >= 0 && j< ans.rows)
-					{ 
+					if (i >= 0 && i < ans.cols && j >= 0 && j < ans.rows)
+					{
 						ans.at<Vec3b>(j, i)[0] = S.front()->_data.x;
 						ans.at<Vec3b>(j, i)[1] = S.front()->_data.y;
 						ans.at<Vec3b>(j, i)[2] = S.front()->_data.z;
 					}
-					
 				}
 			}
-			
 			//cout << glm::to_string(S.front()->_min) << " " << glm::to_string(S.front()->_max) << " " << glm::to_string(S.front()->_data) << endl;
-
 		}
 		S.pop();
 	}
