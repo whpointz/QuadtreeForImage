@@ -8,8 +8,8 @@
  **/
 
 
-#ifndef _OCTREE_HPP_
-#define _OCTREE_HPP_
+#ifndef _TREE_HPP_
+#define _TREE_HPP_
 
 
 #include "constants.hpp"
@@ -110,5 +110,5 @@ typedef TreeNode<glm::vec2,4> QuadTreeNode;
 typedef Tree<glm::vec2,4> QuadTree;
 
 
-#endif /* _OCTREE_HPP_ */
+#endif /* _TREE_HPP_ */
 

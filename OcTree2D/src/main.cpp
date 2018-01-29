@@ -14,8 +14,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 using namespace cv;
 
-//Octree
-#include "Octree.hpp"
+//tree
+#include "Tree.hpp"
 
 //IO
 #include <iostream>
@@ -23,21 +23,22 @@ using namespace cv;
 using namespace std;
 
 
+
 int main()
 {
-	QuadTree* Octree_zwh = new QuadTree;
-	Octree_zwh->image_data = logo;
+	QuadTree* QuadTree_zwh = new QuadTree;
+	QuadTree_zwh->image_data = logo;
 
-	printf("Start build the tree!\n");
-	QuadTreeNode* Root = Octree_zwh->BuildTree(Depth, glm::vec2(0, 0), glm::vec2(Octree_zwh->image_data.cols, Octree_zwh->image_data.rows));
-	printf("Build the Tree end!\n");
+	printf("Start build the Quadtree!\n");
+	QuadTreeNode* Root = QuadTree_zwh->BuildTree(Depth, glm::vec2(0, 0), glm::vec2(QuadTree_zwh->image_data.cols, QuadTree_zwh->image_data.rows));
+	printf("Build the Quadtree end!\n");
 
 	//a new mat to store the ans
 	char imagename[10];
 	sprintf_s(imagename, "ans%d.jpg", Depth);
 	Mat ans = logo.clone();
 
-	//out all the data in the Octreel
+	//out all the data in the QuadTree
 	queue<QuadTreeNode*> S;
 	S.push(Root);
 	while (!S.empty())
