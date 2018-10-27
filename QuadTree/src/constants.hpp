@@ -17,7 +17,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "glm/ext.hpp"
 
-#define Depth 5
+#define Depth 4
 
 Mat logo = imread("src/Kite.jpg");
 

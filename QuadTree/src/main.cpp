@@ -11,22 +11,19 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 using namespace cv;
 
 //tree
 #include "Tree.hpp"
 
 //IO
-#include <iostream>
 #include <queue>
 using namespace std;
-
-
 
 int main()
 {
 	QuadTree* QuadTree_zwh = new QuadTree;
+
 	QuadTree_zwh->image_data = logo;
 
 	printf("Start build the Quadtree!\n");
@@ -65,13 +62,14 @@ int main()
 					}
 				}
 			}
-			//cout << glm::to_string(S.front()->_min) << " " << glm::to_string(S.front()->_max) << " " << glm::to_string(S.front()->_data) << endl;
 		}
 		S.pop();
 	}
 	printf("update ans mat end!\n");
 	//save the ans mat
 	imwrite(imagename, ans);
-	//imshow("logo", logo);
-	//waitKey();
+	imshow("ans", ans);
+	imshow("logo", logo);
+	waitKey();
 }
+
