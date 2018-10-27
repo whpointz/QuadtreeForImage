@@ -1,6 +1,3 @@
-# Quadtree
-Maybe it's easier to start at the quadtree, the [article]() will help you!
-
 # Environment
 - `Opencv 2.4.9` 
 - `glm`
